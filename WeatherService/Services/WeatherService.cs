@@ -73,11 +73,19 @@ namespace WeatherService.Service
             }
 
             var result = new List<ResponseForecast>();
+            var iDate = DateTime.UtcNow.Date;
+            DateTime jDate;
             foreach (var item in resultingMessage.list)
             {
+                jDate = DateTime.Parse(item.dt_txt).Date;
+                if (iDate == jDate) 
+                {
+                    continue;
+                }
+                iDate = jDate;
                 result.Add(new ResponseForecast
                 {
-                    date = DateTime.Parse(item.dt_txt),
+                    date = jDate.ToString("yyyy-MM-dd"),
                     city = cityName,
                     temperature = item.main.temp,
                     temperatureMetric = units,

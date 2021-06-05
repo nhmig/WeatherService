@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using WeatherService.Service.Models;
+using openweathermap = WeatherService.Service.Models.openweathermap.org;
 
 namespace WeatherService.Service.Configuration
 {
@@ -7,17 +8,21 @@ namespace WeatherService.Service.Configuration
     {
         public AutoMapping()
         {
-            
             CreateMap<ResponseCurrent, ResponseTemperature> ()
                 .ForMember(dest => dest.city, act => act.MapFrom(src => src.name))
                 .ForMember(dest => dest.temperature, act => act.MapFrom(src => src.main.temp));
-            //.ForMember(dest => dest.metric, act => act.MapFrom(src => src.name));
+                //.ForMember(dest => dest.metric, act => act.MapFrom(src => src.));
 
             CreateMap<ResponseCurrent, ResponseWind>()
                 .ForMember(dest => dest.city, act => act.MapFrom(src => src.name))
                 .ForMember(dest => dest.speed, act => act.MapFrom(src => src.wind.speed))
                 .ForMember(dest => dest.direction, act => act.MapFrom(src => DegreeToDirection(src.wind.deg)));
 
+            //CreateMap<openweathermap.List, ResponseForecast>()
+            //    .ForMember(dest => dest.date, act => act.MapFrom(src => src.dt_txt))
+            //    .ForMember(dest => dest.city, act => act.MapFrom(src => src.))
+            //    .ForMember(dest => dest.temperature, act => act.MapFrom(src => src.main.temp))
+            //    .ForMember(dest => dest.temperatureMetric, act => act.MapFrom(src => src.));
         }
 
         public string DegreeToDirection(int deg) => deg switch
