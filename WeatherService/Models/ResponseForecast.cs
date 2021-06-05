@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WeatherService.Service.Models
+﻿namespace WeatherService.Service.Models
 {
     public class ResponseForecast
     {
