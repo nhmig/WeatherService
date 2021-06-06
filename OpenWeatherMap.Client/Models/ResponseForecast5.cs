@@ -1,4 +1,4 @@
-﻿namespace WeatherService.Service.Models.openweathermap.org
+﻿namespace OpenWeatherMap.Client.Models5
 {
     public class ResponseForecast5
     {

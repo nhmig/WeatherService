@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeatherService.Service;
@@ -20,8 +21,11 @@ namespace WeatherService.Controllers
             _weatherService = weatherService;
         }
 
+        [SwaggerOperation(Summary = "Возвращает текущую температуру в указанном городе в цельсиях или фаренгейтах")]
         [HttpGet("temperature/{cityName}/{units}")]
-        public async Task<ActionResult<ResponseTemperature>> GetTemperature(string cityName, string units)
+        public async Task<ActionResult<ResponseTemperature>> GetTemperature(
+            [FromRoute, SwaggerParameter("Название города", Required = true)] string cityName,
+            [FromRoute, SwaggerParameter("Измерение: 'celsius' или 'fahrenheit'", Required = true)] string units)
         {
             var weatherTemperature = await _weatherService.GetTemperature(cityName, units);
             if (weatherTemperature is null)
@@ -31,8 +35,10 @@ namespace WeatherService.Controllers
             return weatherTemperature;
         }
 
+        [SwaggerOperation(Summary = "Возвращает текущее направление и скорость ветра в указанном городе")]
         [HttpGet("wind/{cityName}")]
-        public async Task<ActionResult<ResponseWind>> GetWind(string cityName)
+        public async Task<ActionResult<ResponseWind>> GetWind(
+            [FromRoute, SwaggerParameter("Название города", Required = true)] string cityName)
         {
             var weatherWind = await _weatherService.GetWind(cityName);
             if (weatherWind is null)
@@ -42,8 +48,11 @@ namespace WeatherService.Controllers
             return new OkObjectResult(weatherWind);
         }
 
+        [SwaggerOperation(Summary = "Возвращает погоду на 5 дней вперед по указанному городу")]
         [HttpGet("{cityName}/future/{units}")]
-        public async Task<ActionResult<List<ResponseForecast>>> GetForecast5(string cityName, string units)
+        public async Task<ActionResult<List<ResponseForecast>>> GetForecast5(
+            [FromRoute, SwaggerParameter("Название города", Required = true)] string cityName,
+            [FromRoute, SwaggerParameter("Измерение: 'celsius' или 'fahrenheit'", Required = true)] string units)
         {
             var forecast = await _weatherService.GetForecast5(cityName, units);
             if (forecast is null)

@@ -1,4 +1,4 @@
-﻿namespace WeatherService.Service.Models
+﻿namespace OpenWeatherMap.Client.Models
 {
     public class ResponseCurrent
     {

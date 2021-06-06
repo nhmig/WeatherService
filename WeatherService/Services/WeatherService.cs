@@ -1,24 +1,24 @@
 ﻿using AutoMapper;
-using Newtonsoft.Json;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 using WeatherService.Service.Models;
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using WeatherService.Service.Models.openweathermap.org;
+using OpenWeatherMap.Client;
+using Refit;
+using OpenWeatherMap.Client.Models;
+using OpenWeatherMap.Client.Models5;
 
 namespace WeatherService.Service
 {
     public class WeatherService : IWeatherService
     {
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
+        private readonly IOpenWeatherMapClient _openWeatherMapClient;
 
-        public WeatherService(IMapper mapper, IConfiguration configuration)
+        public WeatherService(IMapper mapper, IOpenWeatherMapClient openWeatherMapClient)
         {
             _mapper = mapper;
-            _configuration = configuration;
+            _openWeatherMapClient = openWeatherMapClient;
         }
 
         public async Task<ResponseTemperature> GetTemperature(string cityName, string units)
@@ -29,9 +29,12 @@ namespace WeatherService.Service
             {
                 return null;
             }
-
-            ResponseCurrent resultingMessage = await RequestCurrentWeatherApi(cityName, metric);
-            if (resultingMessage == null)
+            ResponseCurrent resultingMessage;
+            try
+            {
+                resultingMessage = await _openWeatherMapClient.GetCurrentWeather(cityName, metric);
+            }
+            catch (ApiException ex)
             {
                 return null;
             }
@@ -48,8 +51,12 @@ namespace WeatherService.Service
                 return null;
             }
 
-            ResponseCurrent resultingMessage = await RequestCurrentWeatherApi(cityName, "metric");
-            if (resultingMessage == null)
+            ResponseCurrent resultingMessage;
+            try
+            {
+                resultingMessage = await _openWeatherMapClient.GetCurrentWeather(cityName, "metric");
+            }
+            catch (ApiException ex)
             {
                 return null;
             }
@@ -66,19 +73,24 @@ namespace WeatherService.Service
                 return null;
             }
 
-            ResponseForecast5 resultingMessage = await RequestForecastWeatherApi(cityName, "metric");
-            if (resultingMessage == null)
+            ResponseForecast5 resultingMessage;
+            try
+            {
+                resultingMessage = await _openWeatherMapClient.GetForecastWeather(cityName, "metric");
+            }
+            catch (ApiException ex)
             {
                 return null;
             }
 
+            //только по первому значению из списка (надеюсь отсортированного) для каждой даты
             var result = new List<ResponseForecast>();
             var iDate = DateTime.UtcNow.Date;
             DateTime jDate;
             foreach (var item in resultingMessage.list)
             {
                 jDate = DateTime.Parse(item.dt_txt).Date;
-                if (iDate == jDate) 
+                if (iDate == jDate)
                 {
                     continue;
                 }
@@ -96,63 +108,12 @@ namespace WeatherService.Service
             return result;
         }
 
-        private async Task<ResponseCurrent> RequestCurrentWeatherApi(string cityName, string metric)
-        {
-            string url = $"{_configuration["PublicApi:WheatherCurrent"]}" +
-                $"?q={cityName}" +
-                $"&units={metric}" +
-                $"&appid={_configuration["token"]}";
-
-            ResponseCurrent resultingMessage;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync(url))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    resultingMessage = JsonConvert.DeserializeObject<ResponseCurrent>(apiResponse);
-                }
-            }
-
-            return resultingMessage;
-        }
-
-        private async Task<ResponseForecast5> RequestForecastWeatherApi(string cityName, string metric)
-        {
-            string url = $"{_configuration["PublicApi:WheatherForecast"]}" +
-                $"?q={cityName}" +
-                $"&units={metric}" +
-                $"&appid={_configuration["token"]}";
-
-            ResponseForecast5 resultingMessage;
-            using (var httpClient = new HttpClient())
-            {
-                using (var response = await httpClient.GetAsync(url))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                    resultingMessage = JsonConvert.DeserializeObject<ResponseForecast5>(apiResponse);
-                }
-            }
-
-            return resultingMessage;
-        }
-
         private string UnitsToMetric(string units) => units switch
         {
             "celsius" => "metric",
             "fahrenheit" => "imperial",
             _ => null
         };
-        
-        //public string DegreeToDirection(int deg) => deg switch
-        //{
-        //    int when deg > 337.5 || deg < 22.5 => "North",
-        //    int when deg < 67.5 => "Northeast",
-        //    int when deg < 112.5 => "East",
-        //    int when deg < 157.5 => "Southeast",
-        //    int when deg < 202.5 => "South",
-        //    int when deg < 247.5 => "Southwest",
-        //    int when deg < 293.5 => "West",
-        //    _ => "Northwest"
-        //};
+
     }
 }
