@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using OpenWeatherMap.Client.Models;
 using WeatherService.Service.Models;
-using openweathermap = WeatherService.Service.Models;
 
 namespace WeatherService.Service.Configuration
 {

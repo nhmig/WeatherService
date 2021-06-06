@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using OpenWeatherMap.Client;
+using OpenWeatherMap.Client.Models;
+using Refit;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeatherService.Service.Models;
-using System.Collections.Generic;
-using OpenWeatherMap.Client;
-using Refit;
-using OpenWeatherMap.Client.Models;
-using Microsoft.Extensions.Configuration;
 
-namespace WeatherService.Service
+namespace WeatherService.Service.Services
 {
     public class WeatherService : IWeatherService
     {
@@ -41,7 +41,7 @@ namespace WeatherService.Service
                 return null;
             }
 
-            var result  = _mapper.Map<ResponseTemperature>(resultingMessage);
+            var result = _mapper.Map<ResponseTemperature>(resultingMessage);
             result.metric = units;
             return result;
         }

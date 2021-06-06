@@ -3,8 +3,8 @@ using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeatherService.Service;
 using WeatherService.Service.Models;
+using WeatherService.Service.Services;
 
 namespace WeatherService.Controllers
 {

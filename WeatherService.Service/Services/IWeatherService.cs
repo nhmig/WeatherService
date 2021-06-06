@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WeatherService.Service.Models;
 
-namespace WeatherService.Service
+namespace WeatherService.Service.Services
 {
     public interface IWeatherService
     {
