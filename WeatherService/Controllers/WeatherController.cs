@@ -57,7 +57,7 @@ namespace WeatherService.Controllers
             var forecast = await _weatherService.GetForecast5(cityName, units);
             if (forecast is null)
             {
-                return NotFound("sdfsdf");
+                return NotFound();
             }
             return new OkObjectResult(forecast);
         }
