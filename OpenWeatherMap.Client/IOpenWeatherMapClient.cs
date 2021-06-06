@@ -1,5 +1,4 @@
 ﻿using OpenWeatherMap.Client.Models;
-using OpenWeatherMap.Client.Models5;
 using Refit;
 using System;
 using System.Threading.Tasks;

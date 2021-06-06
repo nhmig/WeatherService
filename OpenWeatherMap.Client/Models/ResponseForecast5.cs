@@ -1,4 +1,4 @@
-﻿namespace OpenWeatherMap.Client.Models5
+﻿namespace OpenWeatherMap.Client.Models
 {
     public class ResponseForecast5
     {
@@ -64,11 +64,6 @@
         public float speed { get; set; }
         public int deg { get; set; }
         public float gust { get; set; }
-    }
-
-    public class Sys
-    {
-        public string pod { get; set; }
     }
 
     public class Rain

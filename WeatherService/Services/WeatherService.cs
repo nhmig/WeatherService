@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using OpenWeatherMap.Client;
 using Refit;
 using OpenWeatherMap.Client.Models;
-using OpenWeatherMap.Client.Models5;
 using Microsoft.Extensions.Configuration;
 
 namespace WeatherService.Service
