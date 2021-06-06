@@ -7,6 +7,7 @@ using OpenWeatherMap.Client;
 using Refit;
 using OpenWeatherMap.Client.Models;
 using OpenWeatherMap.Client.Models5;
+using Microsoft.Extensions.Configuration;
 
 namespace WeatherService.Service
 {
@@ -14,11 +15,13 @@ namespace WeatherService.Service
     {
         private readonly IMapper _mapper;
         private readonly IOpenWeatherMapClient _openWeatherMapClient;
+        private readonly IConfiguration _configuration;
 
-        public WeatherService(IMapper mapper, IOpenWeatherMapClient openWeatherMapClient)
+        public WeatherService(IMapper mapper, IOpenWeatherMapClient openWeatherMapClient, IConfiguration configuration)
         {
             _mapper = mapper;
             _openWeatherMapClient = openWeatherMapClient;
+            _configuration = configuration;
         }
 
         public async Task<ResponseTemperature> GetTemperature(string cityName, string units)
@@ -32,7 +35,7 @@ namespace WeatherService.Service
             ResponseCurrent resultingMessage;
             try
             {
-                resultingMessage = await _openWeatherMapClient.GetCurrentWeather(cityName, metric);
+                resultingMessage = await _openWeatherMapClient.GetCurrentWeather(cityName, metric, _configuration["token"]);
             }
             catch (ApiException ex)
             {
@@ -54,7 +57,7 @@ namespace WeatherService.Service
             ResponseCurrent resultingMessage;
             try
             {
-                resultingMessage = await _openWeatherMapClient.GetCurrentWeather(cityName, "metric");
+                resultingMessage = await _openWeatherMapClient.GetCurrentWeather(cityName, "metric", _configuration["token"]);
             }
             catch (ApiException ex)
             {
@@ -76,14 +79,14 @@ namespace WeatherService.Service
             ResponseForecast5 resultingMessage;
             try
             {
-                resultingMessage = await _openWeatherMapClient.GetForecastWeather(cityName, "metric");
+                resultingMessage = await _openWeatherMapClient.GetForecastWeather(cityName, metric, _configuration["token"]);
             }
             catch (ApiException ex)
             {
                 return null;
             }
 
-            //только по первому значению из списка (надеюсь отсортированного) для каждой даты
+            //только по первому значению из списка (отсортированного) для каждой даты
             var result = new List<ResponseForecast>();
             var iDate = DateTime.UtcNow.Date;
             DateTime jDate;

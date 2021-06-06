@@ -26,7 +26,7 @@ namespace WeatherService.Service.Configuration
             //    .ForMember(dest => dest.temperatureMetric, act => act.MapFrom(src => src.));
         }
 
-        public string DegreeToDirection(int deg) => deg switch
+        private string DegreeToDirection(int deg) => deg switch
         {
             int when deg > 337.5 || deg < 22.5 => "North",
             int when deg < 67.5 => "Northeast",
