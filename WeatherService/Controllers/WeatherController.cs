@@ -45,7 +45,7 @@ namespace WeatherService.Controllers
             {
                 return NotFound();
             }
-            return new OkObjectResult(weatherWind);
+            return weatherWind;
         }
 
         [SwaggerOperation(Summary = "Возвращает погоду на 5 дней вперед по указанному городу")]
@@ -59,7 +59,7 @@ namespace WeatherService.Controllers
             {
                 return NotFound("sdfsdf");
             }
-            return new OkObjectResult(forecast);
+            return forecast;
         }
     }
 }
