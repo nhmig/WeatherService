@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenWeatherMap.Client.Configuration;
+using Weather.Middleware;
 using WeatherService.Service.Services;
 
 namespace WeatherService
@@ -49,6 +50,12 @@ namespace WeatherService
             app.UseRouting();
 
             app.UseAuthorization();
+
+
+            //app.UseLogUrl();
+            app.UseMiddleware<LogURLMiddleware>();
+
+
 
             app.UseEndpoints(endpoints =>
             {

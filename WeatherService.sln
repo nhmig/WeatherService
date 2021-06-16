@@ -9,13 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherService.Client", "We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeatherMap.Client", "OpenWeatherMap.Client\OpenWeatherMap.Client.csproj", "{F6DCF9EA-35C6-46F7-95AE-FAAC52BCD8AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService.Service", "WeatherService.Service\WeatherService.Service.csproj", "{A582B9CB-E48F-43DE-B8FA-D241522C6068}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherService.Service", "WeatherService.Service\WeatherService.Service.csproj", "{A582B9CB-E48F-43DE-B8FA-D241522C6068}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2BC0BC5C-37A2-4056-B604-7636FEA7E75A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{E27634FA-AC40-4B52-A256-91BC0BB2E09A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService.Test", "WeatherService.Test\WeatherService.Test.csproj", "{B70FA7F1-B9D3-421E-B124-2FAE3060B09F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherService.Test", "WeatherService.Test\WeatherService.Test.csproj", "{B70FA7F1-B9D3-421E-B124-2FAE3060B09F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weather.Middleware", "Weather.Middleware\Weather.Middleware.csproj", "{B31A3C3B-D3C0-459E-AF49-A301EA1EA89F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherServiceFilter", "WeatherServiceFilter\WeatherServiceFilter.csproj", "{AC6BCBBF-3C0C-4E8B-9B6F-F75BD11A6BB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,14 @@ Global
 		{B70FA7F1-B9D3-421E-B124-2FAE3060B09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B70FA7F1-B9D3-421E-B124-2FAE3060B09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B70FA7F1-B9D3-421E-B124-2FAE3060B09F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B31A3C3B-D3C0-459E-AF49-A301EA1EA89F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B31A3C3B-D3C0-459E-AF49-A301EA1EA89F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B31A3C3B-D3C0-459E-AF49-A301EA1EA89F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B31A3C3B-D3C0-459E-AF49-A301EA1EA89F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC6BCBBF-3C0C-4E8B-9B6F-F75BD11A6BB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6BCBBF-3C0C-4E8B-9B6F-F75BD11A6BB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6BCBBF-3C0C-4E8B-9B6F-F75BD11A6BB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6BCBBF-3C0C-4E8B-9B6F-F75BD11A6BB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
