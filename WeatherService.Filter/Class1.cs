@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WeatherServiceFilter
+namespace WeatherService.Filter
 {
     public class Class1
     {

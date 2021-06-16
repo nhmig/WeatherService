@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenWeatherMap.Client\OpenWeatherMap.Client.csproj" />
-    <ProjectReference Include="..\Weather.Middleware\Weather.Middleware.csproj" />
+    <ProjectReference Include="..\WeatherService.Middleware\WeatherService.Middleware.csproj" />
     <ProjectReference Include="..\WeatherService.Service\WeatherService.Service.csproj" />
   </ItemGroup>
 

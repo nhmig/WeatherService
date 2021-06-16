@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenWeatherMap.Client.Configuration;
-using Weather.Middleware;
+using WeatherService.Middleware;
 using WeatherService.Service.Services;
 
 namespace WeatherService
